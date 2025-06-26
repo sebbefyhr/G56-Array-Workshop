@@ -50,7 +50,7 @@ public class NameRepository {
     public static String[] findAll() {
         //todo: implement findAll method
 
-        return Arrays.copyOf(names, 0);
+        return Arrays.copyOf(names, names.length);
     }
 
 
@@ -96,14 +96,17 @@ public class NameRepository {
      * @return An array containing all matching names.
      */
     public static String[] findByFirstName(String firstName) {
-        //todo: findByFirstName method
-        String[] firstNameArray = new String[names.length];
-        int i = 0;
 
-        for(String s : names){
-            if(s.toLowerCase().contains(firstName.toLowerCase())){
-                firstNameArray[i++] = s;
+        String[] firstNameArray = new String[0];
+
+        for(int i = 0; i < names.length; i++){
+
+            if(names[i].toLowerCase().contains(firstName.toLowerCase())){
+
+                firstNameArray = Arrays.copyOf(firstNameArray, firstNameArray.length+1);
+                firstNameArray[firstNameArray.length-1] = names[i];
             }
+
         }
         return firstNameArray;
     }
@@ -116,13 +119,13 @@ public class NameRepository {
      * @return An array containing all matching names.
      */
     public static String[] findByLastName(String lastName) {
-        //todo: implement findByLastName method
-        String[] lastNameArray = new String[names.length];
-        int i = 0;
 
-        for(String s : names){
-            if(s.toLowerCase().contains(lastName.toLowerCase())){
-                lastNameArray[i++] = s;
+        String[] lastNameArray = new String[0];
+
+        for(int i = 0; i < names.length; i++){
+            if(names[i].toLowerCase().contains(lastName.toLowerCase())){
+                lastNameArray = Arrays.copyOf(lastNameArray, lastNameArray.length + 1);
+                lastNameArray[lastNameArray.length-1] = names[i];
             }
         }
         return lastNameArray;
@@ -155,11 +158,21 @@ public class NameRepository {
      * @return True if the name is removed successfully; false if the name is not found in the array.
      */
     public static boolean remove(String fullName) {
-        //todo: implement remove method
 
-        for(int i = 0; i < names.length-1; i++){
+        for(int i = 0; i < names.length; i++){
             if(names[i].equalsIgnoreCase(fullName)){
                 names[i] = null;
+
+                if(i != names.length-1){
+                    String temp = names[names.length-1];
+                    names[names.length-1] = null;
+                    names[i] = temp;
+                    setNames(Arrays.copyOfRange(names, 0, names.length-1));
+                }
+                else{
+                    setNames(Arrays.copyOfRange(names, 0, names.length-1));
+                }
+
                 return true;
             }
         }
