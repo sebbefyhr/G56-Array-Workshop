@@ -1,5 +1,7 @@
 package se.lexicon;
 
+import java.util.Arrays;
+
 /**
  * The NameRepository class provides methods to manage a list of names.
  * It offers functionalities such as adding, removing, finding, and updating names.
@@ -15,8 +17,7 @@ public class NameRepository {
      * @return The number of elements in the names array.
      */
     public static int getSize() {
-        //todo: implement getSize method
-        return 0;
+        return names.length;
     }
 
 
@@ -27,6 +28,7 @@ public class NameRepository {
      */
     public static void setNames(String[] names) {
         //todo: implement setNames method
+        NameRepository.names = names;
     }
 
 
@@ -35,6 +37,8 @@ public class NameRepository {
      */
     public static void clear() {
         //todo: implement clear method
+        String[] newNames = new String[0];
+        names = newNames;
     }
 
 
@@ -45,7 +49,8 @@ public class NameRepository {
      */
     public static String[] findAll() {
         //todo: implement findAll method
-        return null;
+
+        return Arrays.copyOf(names, 0);
     }
 
 
@@ -56,7 +61,11 @@ public class NameRepository {
      * @return The matching name if found; otherwise, null.
      */
     public static String find(String fullName) {
-        //todo: implement find method
+        for(String s : names){
+            if(s.equalsIgnoreCase(fullName)){
+                return s;
+            }
+        }
         return null;
     }
 
@@ -69,6 +78,13 @@ public class NameRepository {
      */
     public static boolean add(String fullName) {
         //todo: implement add method
+        if(find(fullName) == null){
+            if(names[names.length-1] != null){
+                names = Arrays.copyOf(names, names.length +1);
+            }
+            names[names.length-1] = fullName;
+            return true;
+        }
         return false;
     }
 
@@ -81,7 +97,15 @@ public class NameRepository {
      */
     public static String[] findByFirstName(String firstName) {
         //todo: findByFirstName method
-        return null;
+        String[] firstNameArray = new String[names.length];
+        int i = 0;
+
+        for(String s : names){
+            if(s.toLowerCase().contains(firstName.toLowerCase())){
+                firstNameArray[i++] = s;
+            }
+        }
+        return firstNameArray;
     }
 
 
@@ -93,7 +117,15 @@ public class NameRepository {
      */
     public static String[] findByLastName(String lastName) {
         //todo: implement findByLastName method
-        return null;
+        String[] lastNameArray = new String[names.length];
+        int i = 0;
+
+        for(String s : names){
+            if(s.toLowerCase().contains(lastName.toLowerCase())){
+                lastNameArray[i++] = s;
+            }
+        }
+        return lastNameArray;
     }
 
 
@@ -106,6 +138,12 @@ public class NameRepository {
      */
     public static boolean update(String original, String updatedName) {
         //todo: implement update method
+        for(int i = 0; i < names.length-1; i++){
+            if(names[i].equalsIgnoreCase(original)){
+                names[i] = updatedName;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -118,6 +156,13 @@ public class NameRepository {
      */
     public static boolean remove(String fullName) {
         //todo: implement remove method
+
+        for(int i = 0; i < names.length-1; i++){
+            if(names[i].equalsIgnoreCase(fullName)){
+                names[i] = null;
+                return true;
+            }
+        }
         return false;
     }
 
