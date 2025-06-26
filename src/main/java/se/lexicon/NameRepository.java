@@ -78,14 +78,17 @@ public class NameRepository {
      */
     public static boolean add(String fullName) {
         //todo: implement add method
-        if(find(fullName) == null){
-            if(names[names.length-1] != null){
-                names = Arrays.copyOf(names, names.length +1);
-            }
-            names[names.length-1] = fullName;
-            return true;
+
+        String result = find(fullName);
+
+        if(result != null){
+            return false;
         }
-        return false;
+        names = Arrays.copyOf(names, names.length +1);
+        names[names.length-1] = fullName;
+
+        return true;
+
     }
 
 
