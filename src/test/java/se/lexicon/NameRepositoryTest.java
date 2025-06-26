@@ -115,13 +115,3 @@ public class NameRepositoryTest {
 
     }
 }
-/*
-clear()
-findAll()
-find(String fullName)
-add(String fullName)
-findByFirstName(String firstName)
-findByLastName(String lastName)
-update(String original, String updatedName)
-remove(String fullName)
- */
